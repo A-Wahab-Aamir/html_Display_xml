@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="jquery-3.6.4.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
+
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+</head>
+<body>
+    <table id="mytable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Country</th>
+                <th>Company</th>
+                <th>Price</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.get("file.xml", function(res){
+                $(res).find("CD").each(function(){
+                    var data = document.getElementById('tbody');
+                    var title = $(this).find("TITLE").text();
+                    var art = $(this).find("ARTIST").text();
+                    var count = $(this).find("COUNTRY").text();
+                    var comp = $(this).find("COMPANY").text();
+                    var price = $(this).find("PRICE").text();
+                    var year = $(this).find("YEAR").text();
+
+                    data.innerHTML += `
+                        <tr>
+                            <td>${title}</td>
+                            <td>${art}</td>
+                            <td>${count}</td>
+                            <td>${comp}</td>
+                            <td>${price}</td>
+                            <td>${year}</td>
+                        </tr>
+                    `;
+                });
+
+                $('#mytable').DataTable(); // Initialize DataTable after populating data
+            });
+        });
+    </script>
+
+  
+    // <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    // <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+</body>
+</html>
